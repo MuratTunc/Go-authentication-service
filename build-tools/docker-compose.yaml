@@ -1,14 +1,38 @@
-version: '3'
+version: '3.5'
 
 services:
 
- authentication-service:
+  authentication-service:
     build:
       context: ./../authentication-service
       dockerfile: ./../authentication-service/authentication-service.dockerfile
+    image: authentication-service-img
+    container_name: ${AUTHENTICATION_SERVICE_NAME}
     restart: always
     ports:
-      - "8080:8080"
+      - "${AUTHENTICATION_SERVICE_PORT}:${AUTHENTICATION_SERVICE_PORT}" # Maps the authentication-service port from .env
+    environment:
+      - AUTHENTICATION_SERVICE_PORT=${AUTHENTICATION_SERVICE_PORT}
+      - AUTHENTICATION_SERVICE_NAME=${AUTHENTICATION_SERVICE_NAME}
+    env_file:
+      - .env
+    deploy:
+      mode: replicated
+      replicas: 1
+
+
+  postgres:
+    image: postgres:16.6
+    container_name: postgres
+    ports:
+      - "${POSTGRES_DB_PORT}:${POSTGRES_DB_PORT}"
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_DB_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_DB_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB_NAME}
+    volumes:
+      - ./db-data/postgres:/var/lib/postgresql/data
     deploy:
       mode: replicated
       replicas: 1
