@@ -14,14 +14,6 @@ type Config struct {
 	DB *gorm.DB
 }
 
-var (
-	DBHost     = os.Getenv("DB_HOST")     // "auth-db" from docker-compose
-	DBUser     = os.Getenv("DB_USER")     // "auth_user"
-	DBPassword = os.Getenv("DB_PASSWORD") // "auth_password"
-	DBName     = os.Getenv("DB_NAME")     // "auth_db"
-	DBPort     = os.Getenv("DB_PORT")     // "5432"
-)
-
 // connectToDB function to connect to PostgreSQL using constants
 func connectToDB() (*gorm.DB, error) {
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
@@ -42,6 +34,7 @@ func connectToDB() (*gorm.DB, error) {
 }
 
 func main() {
+
 	PrintEnvVariables()
 
 	db, err := connectToDB()
@@ -51,8 +44,12 @@ func main() {
 
 	var app = Config{DB: db}
 
-	ServicePort := "8080"
-	ServiceName := "AUTHENTICATION SERVICE"
+	ServicePort := os.Getenv("AUTHENTICATION_SERVICE_PORT")
+	ServiceName := os.Getenv("AUTHENTICATION_SERVICE_NAME")
+
+	if ServicePort == "" || ServiceName == "" {
+		log.Fatal("Error: Authentication Service environment variables are not set")
+	}
 
 	log.Printf("%s is running on port: %s", ServiceName, ServicePort)
 	srv := &http.Server{

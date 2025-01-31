@@ -16,13 +16,15 @@ const (
 	LoginSuccess          = "Login successful"
 )
 
-// getEnv reads an environment variable or returns a default value
-func getEnv(key, defaultValue string) string {
-	if value, exists := os.LookupEnv(key); exists {
-		return value
-	}
-	return defaultValue
-}
+var (
+	DBHost      = os.Getenv("DB_HOST")     // "auth-db"
+	DBUser      = os.Getenv("DB_USER")     // "auth_user"
+	DBPassword  = os.Getenv("DB_PASSWORD") // "auth_password"
+	DBName      = os.Getenv("DB_NAME")     // "auth_db"
+	DBPort      = os.Getenv("DB_PORT")     // "5432"
+	ServicePort = os.Getenv("AUTHENTICATION_SERVICE_PORT")
+	ServiceName = os.Getenv("AUTHENTICATION_SERVICE_NAME")
+)
 
 // PrintEnvVariables prints all environment variables for debugging
 func PrintEnvVariables() {
@@ -32,4 +34,6 @@ func PrintEnvVariables() {
 	fmt.Printf("DBName: %s\n", DBName)
 	fmt.Printf("DBPort: %s\n", DBPort)
 	fmt.Printf("DBHost: %s\n", DBHost)
+	fmt.Printf("ServicePort: %s\n", ServicePort)
+	fmt.Printf("ServiceName: %s\n", ServiceName)
 }
