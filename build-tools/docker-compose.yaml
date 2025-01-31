@@ -1,42 +1,35 @@
-version: '3.5'
+version: '3.9'
 
 services:
+  auth-db:
+    image: postgres:15
+    container_name: auth-db
+    restart: always
+    environment:
+      POSTGRES_USER: auth_user
+      POSTGRES_PASSWORD: auth_password
+      POSTGRES_DB: auth_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - auth_db_data:/var/lib/postgresql/data
 
-  authentication-service:
+  auth-service:
     build:
       context: ./../authentication-service
       dockerfile: ./../authentication-service/authentication-service.dockerfile
     image: authentication-service-img
-    container_name: ${AUTHENTICATION_SERVICE_NAME}
     restart: always
-    ports:
-      - "${AUTHENTICATION_SERVICE_PORT}:${AUTHENTICATION_SERVICE_PORT}" # Maps the authentication-service port from .env
+    depends_on:
+      - auth-db
     environment:
-      - AUTHENTICATION_SERVICE_PORT=${AUTHENTICATION_SERVICE_PORT}
-      - AUTHENTICATION_SERVICE_NAME=${AUTHENTICATION_SERVICE_NAME}
-    env_file:
-      - .env
-    networks:
-      - mynetwork
-
-  postgres:
-    image: postgres:latest
-    container_name: postgres
-    environment:
-      POSTGRES_USER: ${POSTGRES_DB_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_DB_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB_NAME}
+      DB_HOST: auth-db
+      DB_PORT: 5432
+      DB_USER: auth_user
+      DB_PASSWORD: auth_password
+      DB_NAME: auth_db
     ports:
-      - "${POSTGRES_DB_PORT}:${POSTGRES_DB_PORT}"
-    networks:
-      - mynetwork
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-
-networks:
-  mynetwork:
-    driver: bridge
+      - "8080:8080"
 
 volumes:
-  postgres-data:
-    driver: local
+  auth_db_data:
