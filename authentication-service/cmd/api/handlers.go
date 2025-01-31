@@ -8,18 +8,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// User model for GORM
-type User struct {
-	ID          uint   `gorm:"primaryKey"`
-	Username    string `gorm:"unique;not null"`
-	MailAddress string `gorm:"unique;not null"`
-	Password    string `gorm:"not null"`
-	Activated   bool   `gorm:"default:false"`
-	LoginStatus bool   `gorm:"default:false"`
-	CreatedAt   string `gorm:"default:CURRENT_TIMESTAMP"`
-	UpdatedAt   string `gorm:"default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"`
-}
-
 // HashPassword hashes a password using bcrypt
 func (app *Config) HashPassword(password string) (string, error) {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)

@@ -1,4 +1,3 @@
-// main.go
 package main
 
 import (
@@ -12,37 +11,37 @@ import (
 )
 
 type Config struct {
-	// Add any fields that you need here for your application configuration
-	// For example, you might store your database connection or other configurations here.
 	DB *gorm.DB
 }
 
 // connectToDB function to connect to PostgreSQL using constants
 func connectToDB() (*gorm.DB, error) {
-	// (DSN) for PostgreSQL connection
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s",
-		DBHost, DBUser, DBPassword, DBName, DBPort, DBSSLMode)
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s",
+		DBHost, DBUser, DBPassword, DBName, DBPort)
 
-	// Database connection setup
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		return nil, err
+	}
+
+	// AutoMigrate to create tables
+	err = db.AutoMigrate(&User{})
+	if err != nil {
+		log.Fatal("Failed to migrate database:", err)
 	}
 
 	return db, nil
 }
 
 func main() {
-	// Establish database connection
+	PrintEnvVariables()
+
 	db, err := connectToDB()
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
 	}
 
-	// set up config
-	var app = Config{
-		DB: db,
-	}
+	var app = Config{DB: db}
 
 	ServicePort := os.Getenv("AUTHENTICATION_SERVICE_PORT")
 	ServiceName := os.Getenv("AUTHENTICATION_SERVICE_NAME")

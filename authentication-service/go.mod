@@ -19,6 +19,7 @@ require (
 )
 
 require (
+	github.com/lib/pq v1.10.9
 	golang.org/x/text v0.21.0 // indirect
 	gorm.io/driver/postgres v1.5.11
 	gorm.io/gorm v1.25.12
