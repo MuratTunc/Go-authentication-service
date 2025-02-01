@@ -8,6 +8,17 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// Constants for error and success messages
+const (
+	ErrInvalidRequestBody = "Invalid request body"
+	ErrHashingPassword    = "Error hashing password"
+	ErrInsertingUser      = "Error inserting user"
+	ErrUserNotFound       = "User not found"
+	ErrInvalidCredentials = "Invalid credentials"
+	UserCreatedSuccess    = "User created successfully"
+	LoginSuccess          = "Login successful"
+)
+
 // HashPassword hashes a password using bcrypt
 func (app *Config) HashPassword(password string) (string, error) {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)

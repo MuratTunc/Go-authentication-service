@@ -22,6 +22,8 @@ func connectToDB() (*gorm.DB, error) {
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		return nil, err
+	} else {
+		fmt.Println("DATABASE connection success!")
 	}
 
 	// AutoMigrate to create tables
@@ -51,7 +53,7 @@ func main() {
 		log.Fatal("Error: Authentication Service environment variables are not set")
 	}
 
-	log.Printf("%s is running on port: %s", ServiceName, ServicePort)
+	fmt.Printf("%s is running on port: %s", ServiceName, ServicePort)
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%s", ServicePort),
 		Handler: app.routes(),

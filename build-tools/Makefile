@@ -2,12 +2,14 @@
 ENV_FILE := .env
 
 ## up_build: Stops and removes all running containers, builds the project, checks ports, and starts docker-compose
-up_build: stop_all_containers build_authentication_service
+build: stop_all_containers down build_authentication_service
 	echo "🚀 Building (when required) and starting docker images with environment variables..."
 	docker-compose up --build -d
 	echo "✅ Docker images built and started!"
 	echo "📜 Fetching logs for all services..."
 	docker-compose logs --tail=50
+	echo "🚀 Runnig Containers:"
+	docker ps
 
 ## stop_all_containers: Stops and removes all running Docker containers (if any exist)
 stop_all_containers:

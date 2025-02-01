@@ -5,17 +5,6 @@ import (
 	"os"
 )
 
-// Constants for error and success messages
-const (
-	ErrInvalidRequestBody = "Invalid request body"
-	ErrHashingPassword    = "Error hashing password"
-	ErrInsertingUser      = "Error inserting user"
-	ErrUserNotFound       = "User not found"
-	ErrInvalidCredentials = "Invalid credentials"
-	UserCreatedSuccess    = "User created successfully"
-	LoginSuccess          = "Login successful"
-)
-
 var (
 	DBHost      = os.Getenv("DB_HOST")     // "auth-db"
 	DBUser      = os.Getenv("DB_USER")     // "auth_user"

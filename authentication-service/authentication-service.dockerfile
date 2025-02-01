@@ -25,8 +25,5 @@ WORKDIR /app
 # Copy the compiled binary from the builder stage
 COPY --from=builder /app/authenticationServiceApp .
 
-# Expose the required port
-EXPOSE 8080
-
 # Run the binary
 CMD ["/app/authenticationServiceApp"]
