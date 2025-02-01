@@ -1,6 +1,7 @@
 Authentication Micro-service via PostgreSQL and Golang-GORM-Gokit
 
-In this project, I will explain the communication between the PostgreSQL database running on Docker and the authentication go service running on Docker using the Golang SW language.
+In this project, I will explain the communication between the PostgreSQL database running on Docker and the authentication go service running on Docker using the Golang SW language.![AuthMain](https://github.com/user-attachments/assets/bdc7fa8c-8926-4d15-a746-110d5dab74e2)
+
 — Project Structure —
 — Project Folder structure —
 
