@@ -1,0 +1,32 @@
+# Ignore environment files
+.env
+
+# Ignore compiled Go binaries
+authenticationServiceApp
+
+# Ignore Go build artifacts
+*.exe
+*.out
+*.test
+*.a
+*.o
+
+# Ignore dependency directories
+/vendor/
+/bin/
+/pkg/
+
+# Ignore IDE/editor files
+*.swp
+*.swo
+*.swn
+.vscode/
+.idea/
+*.iml
+
+
+
+# Ignore logs and temp files
+*.log
+*.tmp
+*.cache
