@@ -1,7 +1,7 @@
 # Environment file and variables
 ENV_FILE := .env
 
-## up_build: Stops and removes all running containers, builds the project, checks ports, and starts docker-compose
+## up_build: Stops and removes all running containers, builds the project and starts docker-compose
 build: stop_all_containers down build_authentication_service
 	echo "🚀 Building (when required) and starting docker images with environment variables..."
 	docker-compose up --build -d
@@ -23,7 +23,6 @@ stop_all_containers:
 	else \
 		echo "⚡ No running containers found. Skipping stop and remove."; \
 	fi
-
 
 ## down: stop docker-compose
 down:

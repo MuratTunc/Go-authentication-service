@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     ports:
-      - "${DB_PORT}:${DB_PORT}"  # Correct port mapping
+      - "${DB_PORT}:${DB_PORT}"
     volumes:
       - auth_db_data:/var/lib/postgresql/data
 
@@ -23,7 +23,7 @@ services:
     depends_on:
       - auth-db
     ports:
-      - "${AUTHENTICATION_SERVICE_PORT}:${AUTHENTICATION_SERVICE_PORT}"  # Ensure port mapping is correct
+      - "${AUTHENTICATION_SERVICE_PORT}:${AUTHENTICATION_SERVICE_PORT}"
     env_file:
       - .env  # Make sure environment variables are loaded
 
