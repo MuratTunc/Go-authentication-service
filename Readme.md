@@ -1,4 +1,4 @@
-Authentication Micro-service via PostgreSQL and Golang-GORM-Gokit
+# __Authentication micro-service design and credential data storage via PostgreSQL in Golang__
 
 
 ![AuthMain](https://github.com/user-attachments/assets/8981a368-c2f5-4466-bcc3-65f21ae369ee)
